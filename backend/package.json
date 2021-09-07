@@ -1,0 +1,38 @@
+{
+  "name": "didierbecq_7_17072021",
+  "version": "1.0.0",
+  "description": "Mini forum Groupomania",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "server",
+    "http",
+    "api",
+    "rest"
+  ],
+  "author": "Becq Didier",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.3.0",
+    "fs": "0.0.1-security",
+    "fs-extra": "^10.0.0",
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.3",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.2.5",
+    "password-validator": "^5.1.1",
+    "sequelize": "^6.6.5",
+    "sequelize-cli": "^6.2.0"
+  },
+  "devDependencies": {
+    "node-dev": "^7.0.0"
+  }
+}
