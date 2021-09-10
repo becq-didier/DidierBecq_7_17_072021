@@ -59,7 +59,7 @@ exports.login = (req, res, next) => {
 							return res.status(200).send({
 								id: userFound.id,
 								isAdmin: userFound.isAdmin,
-								token: jwt.sign({ id: userFound.id, isAdmin: userFound.isAdmin, }, process.env.SECRET_KEY, { expiresIn: "360s", }),
+								token: jwt.sign({ id: userFound.id, isAdmin: userFound.isAdmin, }, process.env.SECRET_KEY, { expiresIn: "1 day", }),
 								avatar: userFound.avatar,
 								pseudo:userFound.pseudo,
 								email:userFound.email,
@@ -172,7 +172,7 @@ exports.modifyProfile = (req, res, next) => {
 							bio: bio,
 							avatar:avatar,
 						}, { where: { id: req.params.id } })
-						.then((userFound) => { res.status(200).send("Mise à jour réussie"); })
+						.then((userFound) => {; return res.status(200).json({firstName,lastName,pseudo,avatar});})
 						.catch(function(err) { return res.status(500).send({ error: "Problème de mise a jour" }); });
 				} else {
 					
@@ -188,7 +188,7 @@ exports.modifyProfile = (req, res, next) => {
 							pseudo: pseudo,
 							bio: bio,
 						}, { where: { id: req.params.id } })
-						.then((userFound) => { res.status(200).send("Mise à jour réussie"); })
+						.then(() => { return res.status(200).json(userFound); })
 						.catch(function(err) { return res.status(500).send({ error: "Problème de mise à jour" }); });
 				}
 			}

@@ -8,7 +8,12 @@ export default createStore({
             isAdmin: null,
         },
     },
-    mutations: {},
+    getters:{
+ 
+    },
+    mutations: {
+ 
+    },
     actions: {},
     modules: {},
 

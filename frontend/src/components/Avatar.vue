@@ -1,6 +1,8 @@
 <template>
 	<div class="user">
 		<div class="user__avatar">
+			{{Avatar}}
+			<!-- {{$store.state.auth}} -->
 			<a :href="['/Profile?id='] +IdUser">
 			<img :src="Avatar" alt="Avatar user" />
 			</a>

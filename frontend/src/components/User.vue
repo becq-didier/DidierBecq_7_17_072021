@@ -208,8 +208,9 @@ export default {
 					}
 				)
 				.then((response) => {
-					console.log(response);
-					this.$emit('modifyUser', { newAvatar: this.selectedFile})
+					alert(JSON.stringify(response.data))
+					this.auth.data.avatar = response.data.avatar
+					localStorage.setItem('auth',JSON.stringify(this.auth))
 					window.location.href = document.location.href;
 				})
 				.catch((err) => console.log(err));

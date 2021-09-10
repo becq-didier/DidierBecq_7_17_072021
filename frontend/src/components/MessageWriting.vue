@@ -4,13 +4,14 @@
 			<div class="container2">
 				<div class="card">
 					<div class="card__message">
+								<span id="info"></span>
 								<div class="card__message__title">
 									<label for="title">Titre: </label>
-									<input v-model="message.title" id="title" name="title" type="text">
+									<input @input="checkTitre" v-model="message.title" id="title" name="title" type="text">
 								</div>
 								<div class="card__message__content">
 									<label for="content">Message:</label>
-									<textarea v-model="message.content" type="testarea" name="content" id="content" rows='' cols=""/>
+									<textarea @input="checkMessage" v-model="message.content" type="testarea" name="content" id="content" rows='' cols=""/>
 								</div>
 								<div class="card__message__image">
 									<label for="attachment">Image de la publication:</label>
@@ -50,6 +51,11 @@ export default {
 				content:'',
 			},
 			output:null,
+			errors:{
+				valide_title:false,
+				valide_message:false,
+				valide_image:false,
+			}
 		};
 	},
 	mounted() {
@@ -58,23 +64,50 @@ export default {
 		}	
 	},
 	methods:{
+		checkTitre(){
+			console.log(this.message.title.length)
+			if(this.message.title.length >=16){
+				document.getElementById('title').classList='alert'
+				document.getElementById('info').innerText="Titre superieur à 16 caractères!"
+			}else{
+				document.getElementById('title').classList.remove('alert')
+				document.getElementById('info').innerText=""
+			}
+		},
+		checkMessage(){
+			if(this.message.content.length >=255){
+				document.getElementById('content').classList='alert'
+				document.getElementById('info').innerText="Message superieur à 255 caractères!"
+			}else{
+				document.getElementById('content').classList.remove('alert')
+				document.getElementById('info').innerText=""
+			}
+		},
 		onFileSelected(event) {
 			this.selectedFile = event.target.files[0];
 			this.output = document.getElementById('output');
 			this.output.src = URL.createObjectURL(event.target.files[0]);
 		},
 		createMessage(){
+		if(!this.selectedFile){
+				this.errors.valide_image=false
+				document.getElementById('info').innerText="Manque image!"
+			}else{
+					this.errors.valide_image=true
+					document.getElementById('info').innerText=""
 			var key = 'http://localhost:3000/api/messages/' + this.auth.data.id;
 
 			const fileData =new FormData;
 
 			fileData.append('title',this.message.title);
 			fileData.append('content',this.message.content);
+			
 			fileData.append(
 				'image',
 				this.selectedFile,
 				this.selectedFile.name
 			);
+
 
 			axios
 				.post(key,fileData, {
@@ -85,6 +118,7 @@ export default {
 					console.log("ok");
 				})
 				.catch((err) => console.log(err));
+			}
 		},
 	}
 }
@@ -137,4 +171,7 @@ export default {
 	}
 }
 
+.alert{
+	box-shadow: 0 0 10px 1px red;
+}
 </style>
